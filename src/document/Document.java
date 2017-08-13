@@ -145,11 +145,7 @@ public abstract class Document {
 	/** return the Flesch readability score of this document */
 	public double getFleschScore()
 	{
-		System.out.println(this.getNumWords());
-		System.out.println(this.getNumSentences());
-		System.out.println(this.getNumSyllables());
-
-		double fleschScore = 206.835 - (1.015*(this.getNumWords() / this.getNumSentences())) - (84.6*(this.getNumSyllables() / this.getNumWords()));
+		double fleschScore = 206.835 - (1.015*((double) this.getNumWords() / (double) this.getNumSentences())) - (84.6*((double) this.getNumSyllables() / this.getNumWords()));
 
 		return fleschScore;
 	}
