@@ -120,6 +120,18 @@ public class MyLinkedListTester {
 		assertEquals("Remove: check a is correct ", 65, a);
 		assertEquals("Remove: check element 0 is correct ", (Integer)21, list1.get(0));
 		assertEquals("Remove: check size is correct ", 2, list1.size());
+		try{
+			list1.remove(25);
+			fail("Too high of an index");
+		}catch (IndexOutOfBoundsException e){
+
+		}
+		try{
+			list1.remove(-1);
+			fail("Too low of an index");
+		}catch (IndexOutOfBoundsException e){
+
+		}
 
 	}
 	
@@ -129,6 +141,12 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
+		try{
+			list1.add(null);
+			fail("Can't add a null element");
+		}catch (NullPointerException e){
+
+		}
 		assertEquals("Add: check last element is correct", (Integer)42, list1.get(2));
 	}
 
@@ -158,6 +176,19 @@ public class MyLinkedListTester {
 			list2.add(20, 5);
 			fail("Out of bounds index");
 		} catch (IndexOutOfBoundsException e){
+
+		}
+		try{
+			list2.add(-1, 5);
+			fail("Out of bounds index");
+		} catch (IndexOutOfBoundsException e){
+
+		}
+
+		try{
+			list1.add(0,null);
+			fail("Can't add a null element");
+		}catch (NullPointerException e){
 
 		}
 

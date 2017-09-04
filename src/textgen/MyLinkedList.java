@@ -1,7 +1,5 @@
 package textgen;
 
-import org.reactfx.util.LL;
-
 import java.util.AbstractList;
 
 
@@ -67,6 +65,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		if(index < 0 || index > size){
 			throw new IndexOutOfBoundsException("Index must be a positive integer");
 		}
+		if(element == null){
+			throw new NullPointerException("Null elements are not allowed");
+		}
 		LLNode<E> newElement = new LLNode<E>(element);
 		LLNode current = head.next;
 		for(int i = 0; i < index; i++){
@@ -119,6 +120,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		if(index < 0 || index > size){
 			throw new IndexOutOfBoundsException("Index must be a positive integer");
 		}
+		if(element == null){
+			throw new NullPointerException("Null elements are not allowed");
+		}
 		LLNode current = head.next;
 		for(int i = 0; i < index; i++){
 			current = current.next;
@@ -133,9 +137,6 @@ class LLNode<E>
 	LLNode<E> prev;
 	LLNode<E> next;
 	E data;
-
-	// TODO: Add any other methods you think are useful here
-	// E.g. you might want to add another constructor
 
 	public LLNode(E e) 
 	{
