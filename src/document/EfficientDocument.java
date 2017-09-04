@@ -52,24 +52,31 @@ public class EfficientDocument extends Document {
 		// OF THIS METHOD.
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
 
-//		Initialize instance variabels to 0
+//		Initialize instance variables to 0
 		numSentences = 0;
 		numSyllables = 0;
 		numWords = 0;
 
+
 //		Loop through all tokens
-		for(int i = 0; i < tokens.size(); i++) {
+		for (int i = 0; i < tokens.size(); i++) {
 //			Retrieve current token
 			String token = tokens.get(i);
 //			Check if token is an end of sentence punctuation, if so remove it and increment numSentences
-			if (!this.isWord(token)){
+			if (!this.isWord(token)) {
 				tokens.remove(i);
+				i--;
 				numSentences++;
+			} else {
+//				Count the syllables and add to numSyllables count
+				numSyllables += this.countSyllables(token);
+//				Increment words
+				numWords++;
+//				If last token and is not punctuation, increment sentences
+				if(i == tokens.size() - 1){
+					numSentences++;
+				}
 			}
-//			Count the syllables and add to numSyllables count
-			numSyllables += this.countSyllables(token);
-//			Increment words
-			numWords++;
 		}
 
 	}
