@@ -1,5 +1,7 @@
 package textgen;
 
+import org.reactfx.util.LL;
+
 import java.util.AbstractList;
 
 
@@ -16,7 +18,11 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/** Create a new empty LinkedList */
 	public MyLinkedList() {
-		// TODO: Implement this method
+		size = 0;
+		head = new LLNode<E>(null);
+		tail = new LLNode<E>(null);
+		head.next = tail;
+		tail.prev = head;
 	}
 
 	/**
@@ -25,34 +31,59 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public boolean add(E element ) 
 	{
-		// TODO: Implement this method
-		return false;
+		if(element == null){
+			throw new NullPointerException("Null elements are not allowed");
+		}
+		LLNode<E> newElement = new LLNode<E>(element);
+		newElement.prev = tail.prev;
+		newElement.next = tail;
+		tail.prev.next = newElement;
+		tail.prev = newElement;
+		size++;
+		return true;
 	}
 
 	/** Get the element at position index 
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
 	public E get(int index) 
 	{
-		// TODO: Implement this method.
-		return null;
+		if(index < 0 || index >= size){
+			throw new IndexOutOfBoundsException("Index must be a positive integer");
+		}
+		LLNode current = head.next;
+		for(int i = 0; i < index; i++){
+			current = current.next;
+		}
+		return (E)current.data;
 	}
 
 	/**
 	 * Add an element to the list at the specified index
-	 * @param The index where the element should be added
+	 * @param index The index where the element should be added
 	 * @param element The element to add
 	 */
 	public void add(int index, E element ) 
 	{
-		// TODO: Implement this method
+		if(index < 0 || index > size){
+			throw new IndexOutOfBoundsException("Index must be a positive integer");
+		}
+		LLNode<E> newElement = new LLNode<E>(element);
+		LLNode current = head.next;
+		for(int i = 0; i < index; i++){
+			current = current.next;
+		}
+		newElement.prev = current.prev;
+		newElement.next = current;
+		current.prev.next = newElement;
+		current.prev = newElement;
+		size++;
 	}
 
 
 	/** Return the size of the list */
 	public int size() 
 	{
-		// TODO: Implement this method
-		return -1;
+		return size;
 	}
 
 	/** Remove a node at the specified index and return its data element.
@@ -63,8 +94,17 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public E remove(int index) 
 	{
-		// TODO: Implement this method
-		return null;
+		if(index < 0 || index > size){
+			throw new IndexOutOfBoundsException("Index must be a positive integer");
+		}
+		LLNode current = head.next;
+		for(int i = 0; i < index; i++){
+			current = current.next;
+		}
+		current.next.prev = current.prev;
+		current.prev.next = current.next;
+		size--;
+		return (E)current.data;
 	}
 
 	/**
@@ -76,8 +116,15 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public E set(int index, E element) 
 	{
-		// TODO: Implement this method
-		return null;
+		if(index < 0 || index > size){
+			throw new IndexOutOfBoundsException("Index must be a positive integer");
+		}
+		LLNode current = head.next;
+		for(int i = 0; i < index; i++){
+			current = current.next;
+		}
+		current.data = element;
+		return (E)current.data;
 	}   
 }
 

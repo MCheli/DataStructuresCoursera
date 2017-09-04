@@ -22,7 +22,8 @@ public class MyLinkedListTester {
 	MyLinkedList<Integer> emptyList;
 	MyLinkedList<Integer> longerList;
 	MyLinkedList<Integer> list1;
-	
+	MyLinkedList<Integer> list2;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -42,6 +43,12 @@ public class MyLinkedListTester {
 		list1.add(65);
 		list1.add(21);
 		list1.add(42);
+		list2 = new MyLinkedList<Integer>();
+
+		list2.add(0, 1);
+		list2.add(0,2);
+		list2.add(2,3);
+		list2.add(1,4);
 		
 	}
 
@@ -113,8 +120,7 @@ public class MyLinkedListTester {
 		assertEquals("Remove: check a is correct ", 65, a);
 		assertEquals("Remove: check element 0 is correct ", (Integer)21, list1.get(0));
 		assertEquals("Remove: check size is correct ", 2, list1.size());
-		
-		// TODO: Add more tests here
+
 	}
 	
 	/** Test adding an element into the end of the list, specifically
@@ -123,8 +129,7 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
-        // TODO: implement this test
-		
+		assertEquals("Add: check last element is correct", (Integer)42, list1.get(2));
 	}
 
 	
@@ -132,7 +137,7 @@ public class MyLinkedListTester {
 	@Test
 	public void testSize()
 	{
-		// TODO: implement this test
+		assertEquals("Size: Check correct size of list1",3, list1.size());
 	}
 
 	
@@ -144,19 +149,36 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddAtIndex()
 	{
-        // TODO: implement this test
-		
+		assertEquals("Add at Index: Check correct size of list2", 4, list2.size());
+		assertEquals("Add at Index: Check correct value at position 0",(Integer)2, list2.get(0));
+		assertEquals("Add at Index: Check correct value at position 1",(Integer)4, list2.get(1));
+		assertEquals("Add at Index: Check correct value at position 2",(Integer)1, list2.get(2));
+		assertEquals("Add at Index: Check correct value at position 3",(Integer)3, list2.get(3));
+		try{
+			list2.add(20, 5);
+			fail("Out of bounds index");
+		} catch (IndexOutOfBoundsException e){
+
+		}
+
 	}
 	
 	/** Test setting an element in the list */
 	@Test
 	public void testSet()
 	{
-	    // TODO: implement this test
-	    
+		list2.set(0, 3);
+		list2.set(3, 5);
+
+		try{
+			list2.set(20, 5);
+			fail("Out of bounds index");
+		} catch (IndexOutOfBoundsException e){
+
+		}
+		assertEquals("Set at Index: Check correct value at position 0",(Integer)3,list2.get(0));
+		assertEquals("Set at Index: Check correct value at position 3",(Integer)5,list2.get(3));
+
 	}
-	
-	
-	// TODO: Optionally add more test methods.
-	
+
 }
