@@ -1,7 +1,5 @@
 package spelling;
 
-import sun.text.normalizer.Trie;
-
 import java.util.*;
 
 /** 
@@ -70,18 +68,18 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	@Override
 	public boolean isWord(String s) 
 	{
-		String lowerWord = s.toLowerCase();
-		TrieNode curr = root;
-
-		for (int i = 0; i < lowerWord.length(); i++) {
-			char letter = lowerWord.charAt(i);
-			if (curr.getChild(letter) == null) {
+		String sToCheck = s.toLowerCase();
+		TrieNode node = root;
+		for (int i = 0; i < sToCheck.length(); i++) {
+			char c = sToCheck.charAt(i);
+			if (node.getValidNextCharacters().contains(c)) {
+				node = node.getChild(c);
+			} else {
 				return false;
 			}
-			curr = curr.getChild(letter);
-			if(curr.getText().equals(lowerWord)){
-				return true;
-			}
+		}
+		if (node.endsWord()) {
+			return true;
 		}
 		return false;
 
